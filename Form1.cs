@@ -310,6 +310,7 @@ namespace Skladero
                         pr.Kill();
                     }
                 }
+                System.Threading.Thread.Sleep(300);
                 File.Delete("skladero.chm");
             }
             DialogResult ds = MessageBox.Show("Возможно есть несохраненные изменения, желаете сохранить?", "Сохранить?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
