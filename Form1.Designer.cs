@@ -90,21 +90,21 @@
             // OpenMenuItem
             // 
             this.OpenMenuItem.Name = "OpenMenuItem";
-            this.OpenMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.OpenMenuItem.Size = new System.Drawing.Size(154, 22);
             this.OpenMenuItem.Text = "Открыть";
             this.OpenMenuItem.Click += new System.EventHandler(this.OpenMenuItem_Click);
             // 
             // SaveMenuItem
             // 
             this.SaveMenuItem.Name = "SaveMenuItem";
-            this.SaveMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SaveMenuItem.Size = new System.Drawing.Size(154, 22);
             this.SaveMenuItem.Text = "Сохранить";
             this.SaveMenuItem.Click += new System.EventHandler(this.SaveMenuItem_Click);
             // 
             // SaveAsMenuItem
             // 
             this.SaveAsMenuItem.Name = "SaveAsMenuItem";
-            this.SaveAsMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.SaveAsMenuItem.Size = new System.Drawing.Size(154, 22);
             this.SaveAsMenuItem.Text = "Сохранить как";
             this.SaveAsMenuItem.Click += new System.EventHandler(this.SaveAsMenuItem_Click);
             // 
@@ -122,12 +122,14 @@
             this.HelpmenuItem.Name = "HelpmenuItem";
             this.HelpmenuItem.Size = new System.Drawing.Size(180, 22);
             this.HelpmenuItem.Text = "Справка";
+            this.HelpmenuItem.Click += new System.EventHandler(this.HelpmenuItem_Click);
             // 
             // AboutMenuItem
             // 
             this.AboutMenuItem.Name = "AboutMenuItem";
             this.AboutMenuItem.Size = new System.Drawing.Size(180, 22);
             this.AboutMenuItem.Text = "О программе";
+            this.AboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
             // 
             // label1
             // 
@@ -389,6 +391,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.Text = "Управление запасами";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();

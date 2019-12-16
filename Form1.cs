@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -41,7 +42,34 @@ namespace Skladero
 
         private void CalculateBtn_Click(object sender, EventArgs e)
         {
-            if (!IsAnyBoxEmpty())Calculate();
+            bool notempty = IsAnyBoxEmpty();
+            bool alldouble = CheckForDouble();
+            if (!notempty && alldouble)Calculate();
+            else
+            {
+               if(notempty)
+                {
+                    MessageBox.Show("Есть незаполненные поля.\nЗаполните их и повторите попытку", "Пустые поля", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+               else MessageBox.Show("Есть неправильно заполненные поля.\nЗаполните их и повторите попытку", "Неправильные поля", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private bool CheckForDouble()
+        {
+            try
+            {
+                double c1 = Convert.ToDouble(c1txtBox.Text);
+                double c2 = Convert.ToDouble(c1txtBox.Text);
+                double c3 = Convert.ToDouble(c1txtBox.Text);
+                double Q = Convert.ToDouble(QtxtBox.Text);
+                double N = Convert.ToDouble(NtxtBox.Text);
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
         }
 
         private void Calculate()
@@ -241,6 +269,52 @@ namespace Skladero
                     filename = null;
                 }
             }
+        }
+
+        private void AboutMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox ab = new AboutBox();
+            ab.ShowDialog();
+        }
+
+        private void HelpmenuItem_Click(object sender, EventArgs e)
+        {
+            if (File.Exists("skladero.chm"))
+            {
+                Process[] proc = Process.GetProcessesByName("hh");
+                if (proc.Count()>0)
+                {
+                    foreach(Process pr in proc)
+                    {
+                        pr.Kill();
+                    }
+                }
+                System.Threading.Thread.Sleep(300);
+                File.Delete("skladero.chm");
+            }
+            byte[] file = Skladero.Properties.Resources.Skladero;
+            File.WriteAllBytes("skladero.chm", file);
+            File.SetAttributes("skladero.chm", FileAttributes.Hidden);
+            Process.Start("skladero.chm");
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (File.Exists("skladero.chm"))
+            {
+                Process[] proc = Process.GetProcessesByName("hh.exe");
+                if (proc.Count() > 0)
+                {
+                    foreach (Process pr in proc)
+                    {
+                        pr.Close();
+                    }
+                }
+                File.Delete("skladero.chm");
+            }
+            DialogResult ds = MessageBox.Show("Возможно есть несохраненные изменения, желаете сохранить?", "Сохранить?", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information);
+            if (ds == DialogResult.Yes) SaveMenuItem_Click(new object(), EventArgs.Empty);
+            else if (ds == DialogResult.Cancel) e.Cancel=true;
         }
     }
 }
