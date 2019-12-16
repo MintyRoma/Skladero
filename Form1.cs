@@ -302,12 +302,12 @@ namespace Skladero
         {
             if (File.Exists("skladero.chm"))
             {
-                Process[] proc = Process.GetProcessesByName("hh.exe");
+                Process[] proc = Process.GetProcessesByName("hh");
                 if (proc.Count() > 0)
                 {
                     foreach (Process pr in proc)
                     {
-                        pr.Close();
+                        pr.Kill();
                     }
                 }
                 File.Delete("skladero.chm");
